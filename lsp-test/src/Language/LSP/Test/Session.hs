@@ -425,7 +425,7 @@ updateState (FromServerMess SWorkspaceApplyEdit r) = do
           pure $ map (\(v, e) -> TextDocumentEdit v (List [InL e])) $ zip vers edits
 
         getChangeParams uri (List edits) = do 
-          map <$> pure getParamsFromTextDocumentEdit <*> textDocumentEdits uri (reverse edits)
+          map <$> pure getParamsFromTextDocumentEdit <*> textDocumentEdits uri edits
 
         mergeParams :: [DidChangeTextDocumentParams] -> DidChangeTextDocumentParams
         mergeParams params = let events = concat (toList (map (toList . (^. contentChanges)) params))
